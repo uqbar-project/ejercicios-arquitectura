@@ -1,17 +1,24 @@
-package ar.edu.unq.iaci.comp2.prouctos.app;
+package model.domain.persistence.memory;
 
 import model.domain.Item;
 import model.domain.Producto;
-import model.domain.persistence.ItemCollectionHome;
 import model.domain.persistence.ItemHome;
-import model.domain.persistence.ProductoCollectionHome;
 import model.domain.persistence.ProductoHome;
+import ar.edu.unq.iaci.comp2.prouctos.app.ApplicationContext;
+import ar.edu.unq.iaci.comp2.prouctos.app.TransactionManager;
+import ar.edu.unq.iaci.comp2.prouctos.app.memory.TransactionCollectionManager;
 
-public class Fixture {
+public class MemoryConfiguration {
 
 	public void execute() {
+		this.addTransactionManager();
 		this.addHomes();
 		this.addObjects();
+	}
+
+	private void addTransactionManager() {
+		ApplicationContext.getInstance().put(TransactionManager.class,
+				new TransactionCollectionManager());
 	}
 
 	protected void addObjects() {

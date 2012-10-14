@@ -1,4 +1,4 @@
-package model.domain.persistence;
+package model.domain.persistence.memory;
 
 import java.util.ArrayList;
 import java.util.List;

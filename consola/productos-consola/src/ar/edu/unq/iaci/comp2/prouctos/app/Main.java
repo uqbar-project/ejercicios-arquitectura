@@ -7,12 +7,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import model.domain.persistence.memory.MemoryConfiguration;
 import ar.edu.unq.iaci.comp2.prouctos.app.acciones.AgregarProductoAccion;
 import ar.edu.unq.iaci.comp2.prouctos.app.acciones.BusquedaItemAccion;
 import ar.edu.unq.iaci.comp2.prouctos.app.acciones.BusquedaPorCantidadAccion;
 import ar.edu.unq.iaci.comp2.prouctos.app.acciones.BusquedaPorNombreAccion;
 import ar.edu.unq.iaci.comp2.prouctos.app.acciones.HelpAccion;
-import ar.edu.unq.iaci.comp2.prouctos.app.memory.TransactionCollectionManager;
 
 /**
  * @author leo
@@ -30,8 +30,7 @@ public class Main {
 	}
 
 	private void iniciar() {
-		this.configurarHomes();
-		this.configurarTransactionManager();
+		this.configurarApplicationContext();
 		this.configurarAcciones();
 		this.configurarAccionDefault();
 	}
@@ -49,17 +48,8 @@ public class Main {
 		this.acciones.add(new BusquedaPorCantidadAccion());
 	}
 
-	private void configurarTransactionManager() {
-		ApplicationContext.getInstance().put(TransactionManager.class,
-				new TransactionCollectionManager());
-	}
-
-	private void configurarHomes() {
-		new Fixture().execute();
-		// ApplicationContext.getInstance().put(ProductoHome.class,
-		// new ProductoCollectionHome());
-		// ApplicationContext.getInstance().put(ItemHome.class,
-		// new ItemCollectionHome());
+	private void configurarApplicationContext() {
+		new MemoryConfiguration().execute();
 	}
 
 	private void ejecutarAccion(String[] args) {

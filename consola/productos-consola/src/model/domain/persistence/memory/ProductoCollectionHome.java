@@ -1,6 +1,7 @@
-package model.domain.persistence;
+package model.domain.persistence.memory;
 
 import model.domain.Producto;
+import model.domain.persistence.ProductoHome;
 
 public class ProductoCollectionHome implements ProductoHome {
 

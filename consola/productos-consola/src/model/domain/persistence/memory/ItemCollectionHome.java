@@ -1,10 +1,11 @@
-package model.domain.persistence;
+package model.domain.persistence.memory;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import model.domain.Item;
 import model.domain.Persistible;
+import model.domain.persistence.ItemHome;
 
 @SuppressWarnings("unchecked")
 public class ItemCollectionHome implements ItemHome {
