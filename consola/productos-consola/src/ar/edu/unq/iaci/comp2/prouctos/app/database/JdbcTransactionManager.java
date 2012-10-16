@@ -9,6 +9,8 @@ import java.sql.SQLException;
 import ar.edu.unq.iaci.comp2.prouctos.app.ApplicationContext;
 import ar.edu.unq.iaci.comp2.prouctos.app.TransactionManager;
 
+import com.mysql.jdbc.Statement;
+
 public class JdbcTransactionManager implements TransactionManager {
 
 	private String driverClass;
@@ -97,7 +99,8 @@ public class JdbcTransactionManager implements TransactionManager {
 
 	public PreparedStatement getPreparedStatement(String sql) {
 		try {
-			return this.getConnection().prepareStatement(sql);
+			return this.getConnection().prepareStatement(sql,
+					Statement.RETURN_GENERATED_KEYS);
 		} catch (Exception ex) {
 			throw new RuntimeException("Error al generar el preparedStatement"
 					+ sql, ex);

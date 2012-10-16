@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import model.domain.persistence.memory.MemoryConfiguration;
+import model.domain.persistence.database.DataBaseConfiguration;
 import ar.edu.unq.iaci.comp2.prouctos.app.acciones.AgregarProductoAccion;
 import ar.edu.unq.iaci.comp2.prouctos.app.acciones.BusquedaItemAccion;
 import ar.edu.unq.iaci.comp2.prouctos.app.acciones.BusquedaPorCantidadAccion;
@@ -49,7 +49,8 @@ public class Main {
 	}
 
 	private void configurarApplicationContext() {
-		new MemoryConfiguration().execute();
+		// new MemoryConfiguration().execute();
+		new DataBaseConfiguration().execute();
 	}
 
 	private void ejecutarAccion(String[] args) {

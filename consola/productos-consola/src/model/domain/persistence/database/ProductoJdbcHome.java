@@ -16,7 +16,7 @@ public class ProductoJdbcHome implements ProductoHome {
 
 		JdbcTransactionManager manager = this.getTransactionManager();
 		PreparedStatement statement = manager
-				.getPreparedStatement("SELECT (id, nombre, costo, precio) from PRODUCTO where id = ?");
+				.getPreparedStatement("SELECT id, nombre, costo, precio from producto where id = ?");
 		ResultSet rs = null;
 		try {
 			statement.setInt(1, code);
@@ -44,7 +44,7 @@ public class ProductoJdbcHome implements ProductoHome {
 		JdbcTransactionManager manager = this.getTransactionManager();
 
 		PreparedStatement statement = manager
-				.getPreparedStatement("INSERT INTO PRODUCTO (nombre, costo, precio) VALUES  (?,?,?) ");
+				.getPreparedStatement("INSERT INTO producto (nombre, costo, precio) VALUES  (?,?,?) ");
 		ResultSet generatedKeys = null;
 		try {
 			statement.setString(1, producto.getNombre());
@@ -74,7 +74,7 @@ public class ProductoJdbcHome implements ProductoHome {
 		JdbcTransactionManager manager = this.getTransactionManager();
 
 		PreparedStatement statement = manager
-				.getPreparedStatement("UPDATE PRODUCTO SET nombre = ?, SET costo = ?, SET precio = ? WHERE id = ?");
+				.getPreparedStatement("UPDATE producto SET nombre = ?, SET costo = ?, SET precio = ? WHERE id = ?");
 		try {
 			statement.setString(1, producto.getNombre());
 			statement.setFloat(2, producto.getCosto());
@@ -98,7 +98,7 @@ public class ProductoJdbcHome implements ProductoHome {
 		JdbcTransactionManager manager = this.getTransactionManager();
 
 		PreparedStatement statement = manager
-				.getPreparedStatement("DELETE FROM PRODUCTO WHERE id = ?");
+				.getPreparedStatement("DELETE FROM producto WHERE id = ?");
 		try {
 			statement.setFloat(1, object.getId());
 

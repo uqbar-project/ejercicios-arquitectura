@@ -37,7 +37,7 @@ public class ItemJdbcHome implements ItemHome {
 		}
 
 		PreparedStatement statement = manager
-				.getPreparedStatement("INSERT INTO Item (cantidad, producto) VALUES  (?,?) ");
+				.getPreparedStatement("INSERT INTO item (cantidad, producto) VALUES  (?,?) ");
 		ResultSet generatedKeys = null;
 		try {
 			statement.setFloat(1, item.getCantidad());
@@ -67,7 +67,7 @@ public class ItemJdbcHome implements ItemHome {
 		JdbcTransactionManager manager = this.getTransactionManager();
 
 		PreparedStatement statement = manager
-				.getPreparedStatement("UPDATE ITEM SET cantidad = ?, SET producto = ? WHERE id = ?");
+				.getPreparedStatement("UPDATE item SET cantidad = ?, SET producto = ? WHERE id = ?");
 		try {
 			statement.setInt(1, item.getCantidad());
 			statement.setFloat(2, item.getProducto().getId());
@@ -95,7 +95,7 @@ public class ItemJdbcHome implements ItemHome {
 		JdbcTransactionManager manager = this.getTransactionManager();
 
 		PreparedStatement statement = manager
-				.getPreparedStatement("DELETE FROM ITEM WHERE id = ?");
+				.getPreparedStatement("DELETE FROM item WHERE id = ?");
 		try {
 			statement.setFloat(1, item.getId());
 
@@ -115,7 +115,7 @@ public class ItemJdbcHome implements ItemHome {
 	public List<Item> buscarPorNombre(String string) {
 		// Como no estoy pasando un signo de pregunta en el where, tengo que
 		// ponerle a manos las comillas simples
-		return this.buscar("producto.nombre like '" + string + "'");
+		return this.buscar("producto.nombre like '%" + string + "%'");
 	}
 
 	@Override
@@ -126,13 +126,12 @@ public class ItemJdbcHome implements ItemHome {
 	@Override
 	public List<Item> buscarPorNombreYCantidad(String nombre, Integer cantidad) {
 		return this.buscar("item.cantidad <= " + cantidad
-				+ " AND producto.nombre like '" + nombre + "'");
+				+ " AND producto.nombre like '%" + nombre + "%'");
 	}
 
 	@Override
 	public List<Item> todos() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.buscar(null);
 	}
 
 	protected List<Item> buscar(String where) {
@@ -142,10 +141,11 @@ public class ItemJdbcHome implements ItemHome {
 		} else {
 			where = "";
 		}
-		PreparedStatement statement = manager
-				.getPreparedStatement("SELECT (producto.id, producto.nombre, producto.costo, producto.precio, item.id, item.costo) "
-						+ "from PRODUCTO, ITEM where producto.id = item.producto"
-						+ where);
+		String sql = "SELECT producto.id, producto.nombre, producto.costo, producto.precio, item.id, item.cantidad "
+				+ "from producto, item where producto.id = item.producto"
+				+ where;
+		PreparedStatement statement = manager.getPreparedStatement(sql);
+		// /System.out.println(sql);
 		ResultSet rs = null;
 		try {
 			rs = statement.executeQuery();
