@@ -2,6 +2,8 @@ package ar.edu.unq.iaci.comp2.prouctos.app.database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import ar.edu.unq.iaci.comp2.prouctos.app.TransactionManager;
@@ -91,4 +93,38 @@ public class JdbcTransactionManager implements TransactionManager {
 	public Connection getConnection() {
 		return this.connection;
 	}
+
+	public PreparedStatement getPreparedStatement(String sql) {
+		try {
+			return this.getConnection().prepareStatement(sql);
+		} catch (Exception ex) {
+			throw new RuntimeException("Error al generar el preparedStatement"
+					+ sql, ex);
+		}
+	}
+
+	public void safeClose(ResultSet rs) {
+		if (rs != null) {
+			try {
+				rs.close();
+			} catch (Exception e) {
+				// las cosas que se cierran no deben lanzar excepcion porque
+				// estan siendo usadas en contextos
+				// en los cuales ya hay una excepcion
+			}
+		}
+	}
+
+	public void safeClose(PreparedStatement st) {
+		if (st != null) {
+			try {
+				st.close();
+			} catch (Exception e) {
+				// las cosas que se cierran no deben lanzar excepcion porque
+				// estan siendo usadas en contextos
+				// en los cuales ya hay una excepcion
+			}
+		}
+	}
+
 }
