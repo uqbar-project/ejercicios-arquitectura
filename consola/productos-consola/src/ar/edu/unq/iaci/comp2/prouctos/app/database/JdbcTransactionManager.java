@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import ar.edu.unq.iaci.comp2.prouctos.app.ApplicationContext;
 import ar.edu.unq.iaci.comp2.prouctos.app.TransactionManager;
 
 public class JdbcTransactionManager implements TransactionManager {
@@ -125,6 +126,12 @@ public class JdbcTransactionManager implements TransactionManager {
 				// en los cuales ya hay una excepcion
 			}
 		}
+	}
+
+	protected JdbcTransactionManager getTransactionManager() {
+		return (JdbcTransactionManager) ApplicationContext.getInstance().get(
+				TransactionManager.class);
+
 	}
 
 }

@@ -1,14 +1,15 @@
 package model.domain;
 
 public class Persistible {
+	// El id negativo significa que no esta en la base
+	private int id = -1;
 
-	private int id;
-	
 	public int getId() {
-		return id;
+		return this.id;
 	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
-	
+
 }

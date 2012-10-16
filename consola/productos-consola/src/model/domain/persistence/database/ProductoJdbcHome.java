@@ -44,7 +44,7 @@ public class ProductoJdbcHome implements ProductoHome {
 		JdbcTransactionManager manager = this.getTransactionManager();
 
 		PreparedStatement statement = manager
-				.getPreparedStatement("INSERT INTO PRODUCTOS (nombre, costo, precio) VALUES  (?,?,?) ");
+				.getPreparedStatement("INSERT INTO PRODUCTO (nombre, costo, precio) VALUES  (?,?,?) ");
 		ResultSet generatedKeys = null;
 		try {
 			statement.setString(1, producto.getNombre());
@@ -74,7 +74,7 @@ public class ProductoJdbcHome implements ProductoHome {
 		JdbcTransactionManager manager = this.getTransactionManager();
 
 		PreparedStatement statement = manager
-				.getPreparedStatement("UPDATE PRODUCTOS SET nombre = ?, SET costo = ?, SET precio = ? WHERE id = ?");
+				.getPreparedStatement("UPDATE PRODUCTO SET nombre = ?, SET costo = ?, SET precio = ? WHERE id = ?");
 		try {
 			statement.setString(1, producto.getNombre());
 			statement.setFloat(2, producto.getCosto());
@@ -98,7 +98,7 @@ public class ProductoJdbcHome implements ProductoHome {
 		JdbcTransactionManager manager = this.getTransactionManager();
 
 		PreparedStatement statement = manager
-				.getPreparedStatement("DELETE FROM PRODUCTOS WHERE id = ?");
+				.getPreparedStatement("DELETE FROM PRODUCTO WHERE id = ?");
 		try {
 			statement.setFloat(1, object.getId());
 
