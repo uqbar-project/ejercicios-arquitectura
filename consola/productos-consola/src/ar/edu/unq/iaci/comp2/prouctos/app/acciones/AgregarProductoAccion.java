@@ -20,8 +20,8 @@ public class AgregarProductoAccion implements Accion {
 		Item item = new Item();
 		item.setProducto(producto);
 		item.setCantidad(Integer.parseInt(args[4]));
-		ItemHome itemHome = (ItemHome) ApplicationContext.getInstance().get(
-				ItemHome.class);
+		ItemHome itemHome = (ItemHome) ApplicationContext
+				.obtener(ItemHome.class);
 		itemHome.insert(item);
 		System.out.println("Item insertado");
 	}
@@ -32,7 +32,7 @@ public class AgregarProductoAccion implements Accion {
 		producto.setCosto(Integer.parseInt(args[2]));
 		producto.setPrecio(Integer.parseInt(args[3]));
 		ProductoHome productoHome = (ProductoHome) ApplicationContext
-				.getInstance().get(ProductoHome.class);
+				.obtener(ProductoHome.class);
 		productoHome.insert(producto);
 		System.out.println("Producto insertado");
 		return producto;

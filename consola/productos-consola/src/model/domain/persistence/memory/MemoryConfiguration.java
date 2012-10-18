@@ -8,8 +8,16 @@ import ar.edu.unq.iaci.comp2.prouctos.app.ApplicationContext;
 import ar.edu.unq.iaci.comp2.prouctos.app.TransactionManager;
 import ar.edu.unq.iaci.comp2.prouctos.app.memory.TransactionCollectionManager;
 
+/**
+ * Agrega al application context los objetos necesarios para trabajar contra una
+ * "falsa" persistencia, ya que guarda los objetos en memoria
+ * 
+ */
 public class MemoryConfiguration {
 
+	/**
+	 * Agrega el transactionManager, las homes, y algunos objetos de prueba
+	 */
 	public void execute() {
 		this.addTransactionManager();
 		this.addHomes();
@@ -17,10 +25,18 @@ public class MemoryConfiguration {
 	}
 
 	private void addTransactionManager() {
-		ApplicationContext.getInstance().put(TransactionManager.class,
+		// Este codigo es muy parecido a al de DatabaseConfiguration, pero
+		// cambia el objeto que registra bajo la misma key. Es decir, cuando se
+		// le pida al ApplicationContext algo con la key "TransactionManager",
+		// el mismo va a devolver un objeto que implementa esa interface, pero
+		// la clase concreta es TransactionCollectionManager
+		ApplicationContext.registrar(TransactionManager.class,
 				new TransactionCollectionManager());
 	}
 
+	/**
+	 * Agrega objetos a las homes.
+	 */
 	protected void addObjects() {
 		this.add(5, "Manzana", 1, 3);
 		this.add(3, "Naranja", 2, 4);
@@ -37,8 +53,8 @@ public class MemoryConfiguration {
 		Item item = new Item();
 		item.setProducto(producto);
 		item.setCantidad(cantidad);
-		ItemHome itemHome = (ItemHome) ApplicationContext.getInstance().get(
-				ItemHome.class);
+		ItemHome itemHome = (ItemHome) ApplicationContext
+				.obtener(ItemHome.class);
 		itemHome.insert(item);
 	}
 
@@ -48,15 +64,21 @@ public class MemoryConfiguration {
 		producto.setPrecio(precio);
 		producto.setNombre(nombre);
 		ProductoHome productoHome = (ProductoHome) ApplicationContext
-				.getInstance().get(ProductoHome.class);
+				.obtener(ProductoHome.class);
 		productoHome.insert(producto);
 		return producto;
 	}
 
+	/**
+	 * Agrega las homes
+	 */
 	private void addHomes() {
-		ApplicationContext.getInstance().put(ProductoHome.class,
+		// Las homes que agregan invocan a collecciones en memoria en lugar de
+		// ir a una base de datos. Se registran en nombre de la interface
+		// (ProductoHome e ItemHome) pero las clases concretas son otras
+		// (ProductoCollectionHome e ItemCollectionHome)
+		ApplicationContext.registrar(ProductoHome.class,
 				new ProductoCollectionHome());
-		ApplicationContext.getInstance().put(ItemHome.class,
-				new ItemCollectionHome());
+		ApplicationContext.registrar(ItemHome.class, new ItemCollectionHome());
 	}
 }

@@ -23,7 +23,7 @@ public class BusquedaItemAccion implements Accion {
 	}
 
 	protected ItemHome getItemHome() {
-		return (ItemHome) ApplicationContext.getInstance().get(ItemHome.class);
+		return (ItemHome) ApplicationContext.obtener(ItemHome.class);
 	}
 
 	@Override

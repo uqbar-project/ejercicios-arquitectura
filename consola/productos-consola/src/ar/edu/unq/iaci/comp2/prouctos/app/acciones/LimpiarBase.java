@@ -18,12 +18,11 @@ public class LimpiarBase implements Accion {
 	}
 
 	protected ProductoHome buscarProductoHome() {
-		return (ProductoHome) ApplicationContext.getInstance().get(
-				ProductoHome.class);
+		return (ProductoHome) ApplicationContext.obtener(ProductoHome.class);
 	}
 
 	protected ItemHome buscarItemHome() {
-		return (ItemHome) ApplicationContext.getInstance().get(ItemHome.class);
+		return (ItemHome) ApplicationContext.obtener(ItemHome.class);
 	}
 
 	@Override

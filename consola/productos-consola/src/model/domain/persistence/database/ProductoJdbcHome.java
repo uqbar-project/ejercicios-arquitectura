@@ -115,8 +115,8 @@ public class ProductoJdbcHome implements ProductoHome {
 	}
 
 	protected JdbcTransactionManager getTransactionManager() {
-		return (JdbcTransactionManager) ApplicationContext.getInstance().get(
-				TransactionManager.class);
+		return (JdbcTransactionManager) ApplicationContext
+				.obtener(TransactionManager.class);
 
 	}
 

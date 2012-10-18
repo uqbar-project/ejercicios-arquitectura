@@ -9,8 +9,8 @@ public class Vender implements Accion {
 
 	@Override
 	public void ejecutar(String[] parametros) {
-		ItemHome itemHome = (ItemHome) ApplicationContext.getInstance().get(
-				ItemHome.class);
+		ItemHome itemHome = (ItemHome) ApplicationContext
+				.obtener(ItemHome.class);
 		Item item = itemHome.buscarPorNombre(parametros[1]).get(0);
 		float ganancia = item.vender(Integer.parseInt(parametros[2]));
 		itemHome.update(item);

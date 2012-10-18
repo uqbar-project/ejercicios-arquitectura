@@ -132,8 +132,8 @@ public class JdbcTransactionManager implements TransactionManager {
 	}
 
 	protected JdbcTransactionManager getTransactionManager() {
-		return (JdbcTransactionManager) ApplicationContext.getInstance().get(
-				TransactionManager.class);
+		return (JdbcTransactionManager) ApplicationContext
+				.obtener(TransactionManager.class);
 
 	}
 
