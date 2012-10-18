@@ -10,9 +10,9 @@ import ar.edu.unq.iaci.comp2.prouctos.app.ApplicationContext;
 public class AgregarProductoAccion implements Accion {
 
 	@Override
-	public void ejecutar(String[] args) {
-		Producto producto = this.crearProducto(args);
-		this.crearItem(args, producto);
+	public void ejecutar(String[] parametros) {
+		Producto producto = this.crearProducto(parametros);
+		this.crearItem(parametros, producto);
 
 	}
 
@@ -39,8 +39,8 @@ public class AgregarProductoAccion implements Accion {
 	}
 
 	@Override
-	public boolean aceptar(String[] args) {
-		return args.length == 5 && args[0].equals("agregar");
+	public boolean correspondeA(String[] parametros) {
+		return parametros.length == 5 && parametros[0].equals("agregar");
 	}
 
 	@Override

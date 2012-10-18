@@ -27,7 +27,9 @@ public class DataBaseConfiguration {
 	private void addHomes() {
 		ApplicationContext.getInstance().put(ProductoHome.class,
 				new ProductoJdbcHome());
+
 		ApplicationContext.getInstance()
 				.put(ItemHome.class, new ItemJdbcHome());
+
 	}
 }

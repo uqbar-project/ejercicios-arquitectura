@@ -10,4 +10,6 @@ public interface ProductoHome {
 	void update(Producto object);
 
 	void delete(Producto object);
+
+	void borrarTodo();
 }

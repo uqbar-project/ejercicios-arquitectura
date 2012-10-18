@@ -6,8 +6,8 @@ import model.domain.Item;
 
 public class BusquedaPorNombreAccion extends BusquedaItemAccion {
 	@Override
-	public boolean aceptar(String[] args) {
-		return args.length == 2 && args[0].equals("buscarPorNombre");
+	public boolean correspondeA(String[] parametros) {
+		return parametros.length == 2 && parametros[0].equals("buscarPorNombre");
 	}
 
 	@Override
@@ -16,7 +16,7 @@ public class BusquedaPorNombreAccion extends BusquedaItemAccion {
 	}
 
 	@Override
-	protected List<Item> buscar(String[] args) {
-		return this.getItemHome().buscarPorNombre(args[1]);
+	protected List<Item> buscar(String[] parametros) {
+		return this.getItemHome().buscarPorNombre(parametros[1]);
 	}
 }

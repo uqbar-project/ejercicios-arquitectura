@@ -8,7 +8,6 @@ import java.util.List;
 import model.domain.Item;
 import model.domain.Producto;
 import model.domain.persistence.ItemHome;
-import model.domain.persistence.ProductoHome;
 import ar.edu.unq.iaci.comp2.prouctos.app.ApplicationContext;
 import ar.edu.unq.iaci.comp2.prouctos.app.TransactionManager;
 import ar.edu.unq.iaci.comp2.prouctos.app.database.JdbcTransactionManager;
@@ -28,13 +27,6 @@ public class ItemJdbcHome implements ItemHome {
 	@Override
 	public void insert(Item item) {
 		JdbcTransactionManager manager = this.getTransactionManager();
-
-		// si el primer no esta en la base lo agrego
-		if (item.getProducto().getId() < 0) {
-			ProductoHome productoHome = (ProductoHome) ApplicationContext
-					.getInstance().get(ProductoHome.class);
-			productoHome.insert(item.getProducto());
-		}
 
 		PreparedStatement statement = manager
 				.getPreparedStatement("INSERT INTO item (cantidad, producto) VALUES  (?,?) ");
@@ -67,7 +59,7 @@ public class ItemJdbcHome implements ItemHome {
 		JdbcTransactionManager manager = this.getTransactionManager();
 
 		PreparedStatement statement = manager
-				.getPreparedStatement("UPDATE item SET cantidad = ?, SET producto = ? WHERE id = ?");
+				.getPreparedStatement("UPDATE item SET cantidad = ?, producto = ? WHERE id = ?");
 		try {
 			statement.setInt(1, item.getCantidad());
 			statement.setFloat(2, item.getProducto().getId());
@@ -87,9 +79,6 @@ public class ItemJdbcHome implements ItemHome {
 	}
 
 	@Override
-	// Una opcion seria borrar tambien el producto, ya que en el insert tambien
-	// lo agrego.
-	// por ahora solo borro el item.
 	public void delete(Item item) {
 
 		JdbcTransactionManager manager = this.getTransactionManager();
@@ -134,6 +123,7 @@ public class ItemJdbcHome implements ItemHome {
 		return this.buscar(null);
 	}
 
+	// Cuando busco un item, busco tambien el producto asociado.
 	protected List<Item> buscar(String where) {
 		JdbcTransactionManager manager = this.getTransactionManager();
 		if (where != null) {
@@ -177,6 +167,22 @@ public class ItemJdbcHome implements ItemHome {
 		return (JdbcTransactionManager) ApplicationContext.getInstance().get(
 				TransactionManager.class);
 
+	}
+
+	@Override
+	public void borrarTodo() {
+		JdbcTransactionManager manager = this.getTransactionManager();
+
+		PreparedStatement statement = manager
+				.getPreparedStatement("DELETE from item");
+
+		try {
+			statement.executeUpdate();
+			manager.safeClose(statement);
+		} catch (Exception e) {
+			manager.safeClose(statement);
+			throw new RuntimeException(e);
+		}
 	}
 
 }

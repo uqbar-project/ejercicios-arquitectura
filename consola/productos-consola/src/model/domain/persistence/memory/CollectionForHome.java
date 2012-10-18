@@ -55,4 +55,8 @@ public class CollectionForHome {
 		return new ArrayList(this.getList());
 	}
 
+	public void clear() {
+		this.list.clear();
+	}
+
 }

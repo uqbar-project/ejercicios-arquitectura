@@ -84,4 +84,8 @@ public class ItemCollectionHome implements ItemHome {
 		return this.collectionForHome.cloneList();
 	}
 
+	@Override
+	public void borrarTodo() {
+		this.collectionForHome.clear();
+	}
 }

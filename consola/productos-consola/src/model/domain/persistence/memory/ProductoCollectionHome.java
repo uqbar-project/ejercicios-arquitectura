@@ -28,4 +28,9 @@ public class ProductoCollectionHome implements ProductoHome {
 		this.collectionForHome.delete(object);
 	}
 
+	@Override
+	public void borrarTodo() {
+		this.collectionForHome.clear();
+	}
+
 }

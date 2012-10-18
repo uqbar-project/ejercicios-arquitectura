@@ -74,7 +74,7 @@ public class ProductoJdbcHome implements ProductoHome {
 		JdbcTransactionManager manager = this.getTransactionManager();
 
 		PreparedStatement statement = manager
-				.getPreparedStatement("UPDATE producto SET nombre = ?, SET costo = ?, SET precio = ? WHERE id = ?");
+				.getPreparedStatement("UPDATE producto SET nombre = ?, costo = ?, precio = ? WHERE id = ?");
 		try {
 			statement.setString(1, producto.getNombre());
 			statement.setFloat(2, producto.getCosto());
@@ -118,6 +118,22 @@ public class ProductoJdbcHome implements ProductoHome {
 		return (JdbcTransactionManager) ApplicationContext.getInstance().get(
 				TransactionManager.class);
 
+	}
+
+	@Override
+	public void borrarTodo() {
+		JdbcTransactionManager manager = this.getTransactionManager();
+
+		PreparedStatement statement = manager
+				.getPreparedStatement("DELETE from producto");
+
+		try {
+			statement.executeUpdate();
+			manager.safeClose(statement);
+		} catch (Exception e) {
+			manager.safeClose(statement);
+			throw new RuntimeException(e);
+		}
 	}
 
 }

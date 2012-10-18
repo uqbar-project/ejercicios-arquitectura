@@ -14,14 +14,14 @@ public class ApplicationContext {
 
 	private static ApplicationContext instance = new ApplicationContext();
 
-	Map map = new HashMap();
-
 	public synchronized static ApplicationContext getInstance() {
 		if (instance == null) {
 			instance = new ApplicationContext();
 		}
 		return instance;
 	}
+
+	Map map = new HashMap();
 
 	public Object get(Object key) {
 		return this.map.get(key);

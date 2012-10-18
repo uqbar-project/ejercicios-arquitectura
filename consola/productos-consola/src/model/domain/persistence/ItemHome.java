@@ -22,4 +22,6 @@ public interface ItemHome {
 
 	List<Item> todos();
 
+	void borrarTodo();
+
 }

@@ -13,6 +13,8 @@ import ar.edu.unq.iaci.comp2.prouctos.app.acciones.BusquedaItemAccion;
 import ar.edu.unq.iaci.comp2.prouctos.app.acciones.BusquedaPorCantidadAccion;
 import ar.edu.unq.iaci.comp2.prouctos.app.acciones.BusquedaPorNombreAccion;
 import ar.edu.unq.iaci.comp2.prouctos.app.acciones.HelpAccion;
+import ar.edu.unq.iaci.comp2.prouctos.app.acciones.LimpiarBase;
+import ar.edu.unq.iaci.comp2.prouctos.app.acciones.Vender;
 
 /**
  * @author leo
@@ -43,9 +45,11 @@ public class Main {
 
 	private void configurarAcciones() {
 		this.acciones.add(new AgregarProductoAccion());
+		this.acciones.add(new Vender());
 		this.acciones.add(new BusquedaItemAccion());
 		this.acciones.add(new BusquedaPorNombreAccion());
 		this.acciones.add(new BusquedaPorCantidadAccion());
+		this.acciones.add(new LimpiarBase());
 	}
 
 	private void configurarApplicationContext() {
@@ -54,11 +58,13 @@ public class Main {
 	}
 
 	private void ejecutarAccion(String[] args) {
-		TransactionManager transacionManager = (TransactionManager) ApplicationContext
-				.getInstance().get(TransactionManager.class);
+
 		Accion accion = this.buscarAccion(args);
+		TransactionManager transacionManager = this.getTransactionManager();
+
 		System.out.println("Ejecutando " + accion.getClass().getSimpleName()
 				+ " con argumentos: " + Arrays.toString(args));
+
 		transacionManager.begin();
 		try {
 			accion.ejecutar(args);
@@ -69,9 +75,14 @@ public class Main {
 		}
 	}
 
+	protected TransactionManager getTransactionManager() {
+		return (TransactionManager) ApplicationContext.getInstance().get(
+				TransactionManager.class);
+	}
+
 	private Accion buscarAccion(String[] args) {
 		for (Accion accion : this.acciones) {
-			if (accion.aceptar(args)) {
+			if (accion.correspondeA(args)) {
 				return accion;
 			}
 		}

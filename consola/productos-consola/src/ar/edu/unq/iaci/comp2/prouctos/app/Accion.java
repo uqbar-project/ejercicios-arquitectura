@@ -2,9 +2,9 @@ package ar.edu.unq.iaci.comp2.prouctos.app;
 
 public interface Accion {
 
-	public void ejecutar(String[] args);
+	public void ejecutar(String[] parametros);
 
-	public boolean aceptar(String[] args);
+	public boolean correspondeA(String[] parametros);
 
 	public String ayuda();
 

@@ -24,4 +24,9 @@ public class Item extends Persistible {
 		return this.cantidad + "\t" + this.producto.getDescription();
 	}
 
+	public float vender(int cuantos) {
+		this.cantidad -= cuantos;
+		return cuantos * this.producto.ganancia();
+	}
+
 }

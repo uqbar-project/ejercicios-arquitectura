@@ -9,7 +9,7 @@ public class HelpAccion implements Accion {
 	private List<Accion> acciones;
 
 	@Override
-	public void ejecutar(String[] args) {
+	public void ejecutar(String[] parametros) {
 		System.out.println("Posibilidades\n");
 		for (Accion accion : this.acciones) {
 			System.out.println("\t" + accion.ayuda());
@@ -17,7 +17,7 @@ public class HelpAccion implements Accion {
 	}
 
 	@Override
-	public boolean aceptar(String[] args) {
+	public boolean correspondeA(String[] parametros) {
 		return true;
 	}
 
