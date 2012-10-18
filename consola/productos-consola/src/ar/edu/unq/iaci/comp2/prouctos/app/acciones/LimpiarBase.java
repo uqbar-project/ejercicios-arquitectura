@@ -5,6 +5,12 @@ import model.domain.persistence.ProductoHome;
 import ar.edu.unq.iaci.comp2.prouctos.app.Accion;
 import ar.edu.unq.iaci.comp2.prouctos.app.ApplicationContext;
 
+/**
+ * Borra toda la base de datos
+ * 
+ * @author leo
+ * 
+ */
 public class LimpiarBase implements Accion {
 
 	@Override
